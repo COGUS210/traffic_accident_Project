@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
-text = pd.read_csv("C:/Users/chaihyun/Desktop/sample.csv",
+text = pd.read_csv("sample.csv",
                    sep = ",",
                    names = ['date', 'total', 'death', 'injuries'],
                    converters = {'date': str },
@@ -15,6 +15,7 @@ text = pd.read_csv("C:/Users/chaihyun/Desktop/sample.csv",
 text['date'] = pd.to_datetime(text['date'])
 #print(text)
 grouped = text.groupby(text['date'].dt.strftime('%Y'))['death'].sum()
+
 gdf = pd.DataFrame({'date': grouped.index.astype(int), 'death': grouped.values})
 x = gdf.iloc[:, 0].values
 y = gdf.iloc[:, 1].values.reshape(-1, 1)
