@@ -30,10 +30,17 @@ for region in regionList:
 
                 if cnt == 4:
                     list.append(region[0])  #지역
-                    list.append(str(date))  #년도
 
+                day = 0;
                 for strong in temp:
-                    list.append(strong.text.strip())    #일, 최저, 최고 기온
+                    if day == 0:
+                        if int(strong.text.strip()) < 10:
+                            list.append(str(date) + "0" + strong.text.strip())
+                        else:
+                            list.append(str(date) + strong.text.strip())
+                        day = day + 1;
+                    else:
+                        list.append(strong.text.strip())    #일, 최저, 최고 기온
                     cnt = cnt + 1
 
                 if img is not None:
@@ -41,8 +48,8 @@ for region in regionList:
                     cnt = cnt + 1
 
                 if list:
-                    print (list)태
+                    print (list)
                     # csv파일에 저장
-                    data = np.reshape(list, (-1, 6))
+                    data = np.reshape(list, (-1, 5))
                     dataFrame = pd.DataFrame(data)
                     dataFrame.to_csv("data.csv", mode='a', index=False, header=False)
