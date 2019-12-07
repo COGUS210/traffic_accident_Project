@@ -74,16 +74,19 @@ def init():
             else:
                 floatVal2 = float(floatTmp2[0]) + float(float(floatTmp2[1]) / 10)
 
-            datas.append([int(line2[2]), int(line2[3]), floatVal2, floatVal1])
+            datas.append([int(line2[2]), int(line2[3]), int(line2[4]), floatVal2, floatVal1])
         except:
             print(line2[3])
 
-
-    for line in datas:
-        print(line)
     # for line in datas:
     #   print(line)
 
-
+def heatMap():
+    plt.figure(figsize=(5,5))
+    data = pd.DataFrame(datas)
+    print(data)
+    sns.heatmap(data=data.corr(), annot=True, linewidths=.5, cmap='Blues')
+    plt.show()
 datas = []
 init()
+heatMap()
