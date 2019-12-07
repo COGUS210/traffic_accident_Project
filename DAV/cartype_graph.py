@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
 
 
-# font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
-# rc('font', family=font_name)
+font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
+rc('font', family=font_name)
 
 
 def init():
@@ -48,14 +48,51 @@ def accident():
                          round(float(line1[5]) / float(line2[3]), 7), round(float(line1[6]) / float(line2[4]), 7),
                          round(float(line1[7]) / float(line2[5]), 7)])
 
+    data1 = 0
+    data2 = 0
+    for i in range(5):
+        for j in range(10):
+            data1 += occur[j][i]
+            data2 += die[j][i]
+        y1.append(round(data1, 3))
+        y2.append(round(data2, 5) * 100)
+
+#발생건수
+def viz_pie_chart():
+    x = ['승용차', '승합차', '화물차', '특수차', '이륜차']
+    labels = x
+    sizes = y1
+
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax1.axis('equal')
+    plt.title("차종별 교통사고 발생 비율")
+    plt.show()
+
+#사망사고
+def viz_pie_chart2():
+    x = ['승용차', '승합차', '화물차', '특수차', '이륜차']
+    labels = x
+    sizes = y2
+
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax1.axis('equal')
+    plt.title("차종별 사망사고 발생 비율")
+    plt.show()
 
 lists = []  # 차종별사고데이터
 lists2 = []  # 차종별등록대수데이터
 
 occur = []
 die = []
+y1 = []
+y2 = []
 init()
 accident()
+viz_pie_chart2()
 print(np.array(occur))
+print(y1)
 print("\n")
 print(np.array(die))
+print(y2)
