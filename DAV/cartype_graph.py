@@ -9,7 +9,7 @@ rc('font', family=font_name)
 
 def init():
     headFlag = False
-    file = open('traffic_death.csv', encoding='utf-8')
+    file = open('accident_cartype.csv', encoding='utf-8')
     file2 = open('car_num.csv', encoding='utf-8')
     rdr = csv.reader(file)
     rdr2 = csv.reader(file2)
@@ -29,10 +29,6 @@ def init():
         lists2.append(line)
     lists2.sort()
 
-#차량종류별
-def cartypeAccident():
-
-
-lists = []
-lists2 = []
+lists = [] #차종별사고데이터
+lists2 = [] #차종별등록대수데이터
 init()
