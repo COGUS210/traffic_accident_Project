@@ -4,8 +4,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
-font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
-rc('font', family=font_name)
+
+
+# font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
+# rc('font', family=font_name)
+
 
 def init():
     headFlag = False
@@ -29,6 +32,30 @@ def init():
         lists2.append(line)
     lists2.sort()
 
-lists = [] #차종별사고데이터
-lists2 = [] #차종별등록대수데이터
+
+def accident():
+    for line1 in lists:  # lists : accident, lists2 : car_num
+        if line1[1] == '발생건수' or line1[1] == '사망자수':
+            for line2 in lists2:
+                if line1[0] == line2[0] and line1[1] == '발생건수':
+                    occur.append(
+                        [round(float(line1[3]) / float(line2[1]), 4), round(float(line1[4]) / float(line2[2]), 4),
+                         round(float(line1[5]) / float(line2[3]), 4), round(float(line1[6]) / float(line2[4]), 4),
+                         round(float(line1[7]) / float(line2[5]), 4)])
+                if line1[0] == line2[0] and line1[1] == '사망자수':
+                    die.append(
+                        [round(float(line1[3]) / float(line2[1]), 7), round(float(line1[4]) / float(line2[2]), 7),
+                         round(float(line1[5]) / float(line2[3]), 7), round(float(line1[6]) / float(line2[4]), 7),
+                         round(float(line1[7]) / float(line2[5]), 7)])
+
+
+lists = []  # 차종별사고데이터
+lists2 = []  # 차종별등록대수데이터
+
+occur = []
+die = []
 init()
+accident()
+print(np.array(occur))
+print("\n")
+print(np.array(die))
