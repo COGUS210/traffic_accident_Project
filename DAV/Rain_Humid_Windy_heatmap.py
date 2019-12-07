@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 # 데이터 파싱
 def init():
     headFlag = False
@@ -59,11 +60,11 @@ def init():
         lists2.append(line)
     rst2 = sorted(lists2, key=lambda x: (x[0], x[1]))
 
-
     for line1, line2 in zip(rst1, rst2):
         try:
             floatTmp1 = line1[3].split(',')
             floatTmp2 = line1[4].split(',')
+
             if len(floatTmp1) == 1:
                 floatVal1 = float(floatTmp1[0])
             else:
@@ -76,17 +77,20 @@ def init():
 
             datas.append([int(line2[2]), int(line2[3]), int(line2[4]), floatVal2, floatVal1])
         except:
-            print(line2[3])
+            print("")
 
     # for line in datas:
     #   print(line)
 
+
 def heatMap():
-    plt.figure(figsize=(5,5))
+    plt.figure(figsize=(5, 5))
     data = pd.DataFrame(datas)
     print(data)
     sns.heatmap(data=data.corr(), annot=True, linewidths=.5, cmap='Blues')
     plt.show()
+
+
 datas = []
 init()
 heatMap()
